@@ -11,5 +11,3 @@ module.exports = function check(str, bracketsConfig) {
     if (str.indexOf('|') > -1) return (((str.split('|').length - 1) % 2 == 0) && counter == 0);
     else return counter == 0;
 };
-
-console.log(test('77'));
