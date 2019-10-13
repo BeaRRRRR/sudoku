@@ -1,13 +1,19 @@
 module.exports = function check(str, bracketsConfig) {
     // your solution
     let chars = str.split('');
-    let counter = 0;
+    let stack = [];
     for (const char of chars) {
-        if (char == ')' || char == '}' || char == ']' || char == '2' || char == '4' || char == '6') counter--;
-        else if (char == '(' || char == '{' || char == '[' || char == '1' || char == '3' || char == '5') counter++;
-        if (counter < 0) return false;
+        let bracketSet = bracketsConfig.find(brackets => brackets[1] == char);
+        if(bracketSet) {
+            if(stack[stack.length-1] == bracketSet[0]) {
+                stack.pop();
+            }
+            else {
+                stack.push(char);
+            }
+        }
+        else stack.push(char);
     }
-    if (str.indexOf('7') > -1) return (((str.split('7').length - 1) % 2 == 0) && ((str.split('8').length - 1) % 2 == 0) && counter == 0);
-    if (str.indexOf('|') > -1) return (((str.split('|').length - 1) % 2 == 0) && counter == 0);
-    else return counter == 0;
+    return stack.length == 0;
 };
+
